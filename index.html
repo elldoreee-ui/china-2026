@@ -833,21 +833,32 @@ h1{padding-right:52px}
 .branch span{color:var(--muted)}
 .branch .bl{display:flex;gap:6px;flex:none}
 .builder{background:var(--surface);border:1px solid var(--line);border-radius:22px;margin-top:16px;overflow:clip}
-.builder-head{padding:18px 20px 12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-end;border-bottom:1px solid var(--line)}
-.builder-head h2{margin:0 0 4px;font-size:22px;letter-spacing:-.02em}
-.builder-head p{margin:0;color:var(--muted);font-size:13.5px;max-width:640px}
+.builder-head{padding:14px 16px 10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-end;border-bottom:1px solid var(--line)}
+.builder-head h2{margin:0 0 2px;font-size:20px;letter-spacing:-.02em}
+.builder-head p{margin:0;color:var(--muted);font-size:13px;max-width:560px}
 .builder-actions{display:flex;gap:6px;flex-wrap:wrap}
-.pick-groups{padding:6px 20px 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:0 24px}
-.pick-groups h4{margin:14px 0 4px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
-.pick-groups h4 i{width:8px;height:8px;border-radius:50%}
-.pick{display:grid;grid-template-columns:26px 40px minmax(0,1fr) auto;align-items:center;gap:6px 10px;padding:8px 0;border-bottom:1px dashed var(--line)}
-.pick input{width:22px;height:22px;accent-color:var(--accent);margin:0;cursor:pointer}
-.pick img,.pick .ni{width:40px;height:40px;border-radius:9px;object-fit:cover;background:var(--surface-2);display:block}
-.pick label{cursor:pointer;font-size:14px;font-weight:550;line-height:1.25;min-height:40px;display:flex;flex-direction:column;justify-content:center}
-.pick label small{display:block;color:var(--muted);font-weight:450;font-size:12px}
+.pick-groups{padding:10px 16px 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:8px 16px;align-items:start}
+.pgroup{border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.pgroup>summary{list-style:none;display:flex;align-items:center;gap:8px;padding:10px 12px;min-height:44px;cursor:pointer;font-weight:600;font-size:14px;user-select:none}
+.pgroup>summary::-webkit-details-marker{display:none}
+.pgroup>summary i{width:9px;height:9px;border-radius:50%;flex:none}
+.pgroup>summary .cnt{margin-left:auto;font-weight:500;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pgroup>summary .cnt b{color:var(--text);font-weight:650}
+.pgroup>summary .warnc{color:var(--accent);font-size:12px;font-weight:600}
+.pgroup>summary::after{content:'';width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);margin:0 4px 3px 6px;transition:transform .15s}
+.pgroup[open]>summary::after{transform:rotate(-135deg);margin-bottom:-3px}
+.pgroup .rows{padding:0 12px 6px}
+.pick{display:grid;grid-template-columns:22px 32px minmax(0,1fr) auto;align-items:center;gap:8px;padding:5px 0;border-top:1px dashed var(--line)}
+.pick input{width:20px;height:20px;accent-color:var(--accent);margin:0;cursor:pointer}
+.pick img,.pick .ni{width:32px;height:32px;border-radius:8px;object-fit:cover;background:var(--surface-2);display:block}
+.pick .ni{display:grid;place-items:center;font-size:16px}
+.pick label{cursor:pointer;font-size:13.5px;font-weight:550;line-height:1.2;min-height:36px;display:flex;flex-direction:column;justify-content:center}
+.pick label small{display:block;color:var(--muted);font-weight:450;font-size:11.5px}
 .pick label .bad{color:var(--accent);font-weight:600}
-.pick .seg button{padding:7px 11px;font-size:12.5px}
-.pick.off .seg{opacity:.35;pointer-events:none}
+.pick .seg{padding:2px}
+.pick .seg button{padding:6px 0;min-width:30px;min-height:32px;font-size:12px}
+.pick .seg button[data-day=auto]{min-width:42px}
+.pick.off .seg{opacity:.3;pointer-events:none}
 .pick.miss label{color:var(--accent)}
 .summary{display:flex;gap:8px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--line);background:var(--surface-2);font-size:13.5px;align-items:center}
 .summary b{font-weight:650}
@@ -863,14 +874,14 @@ h1{padding-right:52px}
 .map-lock.on{background:var(--accent)}
 .nomap{display:grid;place-items:center;height:100%;color:var(--muted);font-size:13px;padding:20px;text-align:center}
 @media (max-width:820px){
-  .pick-groups{padding:4px 14px 14px;grid-template-columns:1fr}
+  .pick-groups{padding:8px 10px 12px;grid-template-columns:1fr}
   .builder-head{padding:16px 14px 12px}.summary,.overload{padding:12px 14px}
 }
 @media (max-width:560px){
   nav.tabs .wrap{gap:2px}
   nav.tabs button{padding:9px 12px;font-size:14px}
-  .pick{grid-template-columns:26px 40px minmax(0,1fr)}
-  .pick .seg{grid-column:2/-1;justify-self:start}
+  .pick img,.pick .ni{display:none}
+  .pick{grid-template-columns:22px minmax(0,1fr) auto}
   #map{height:52vh}
 }
 </style>
@@ -922,7 +933,7 @@ h1{padding-right:52px}
     <div class="builder">
       <div class="builder-head">
         <div><h2>Соберите маршрут</h2>
-        <p>Отметьте места. «Авто» — сайт сам разложит их по дням: по районам, часам работы и времени дня (Бунд вечером, аутлет утром), с обедом, ужином и паузами. Можно закрепить место за конкретным днём.</p></div>
+        <p>Отметьте места — «Авто» разложит их по дням с учётом районов, часов работы, еды и пауз. Д1–Д3 закрепляют место за днём.</p></div>
         <div class="builder-actions">
           <button class="btn" id="pickDefault">Базовый маршрут</button>
           <button class="btn" id="pickAll">Всё в центре</button>
@@ -1229,11 +1240,11 @@ function plan(){
 // ---------- picker ----------
 function renderPicker(){
   const groups={};PLACES.filter(p=>p.id!=='hotel').forEach(p=>{(groups[p.cats[0]]=groups[p.cats[0]]||[]).push(p)});
-  $('#picker').innerHTML=CATS.filter(c=>groups[c[0]]).map(([k,n,col])=>`<div><h4><i style="background:${col}"></i>${n}</h4>${groups[k].map(p=>{const im=thumb(p);
+  $('#picker').innerHTML=CATS.filter(c=>groups[c[0]]).map(([k,n,col])=>`<details class="pgroup" data-g="${k}"><summary><i style="background:${col}"></i>${n}<span class="warnc"></span><span class="cnt"></span></summary><div class="rows">${groups[k].map(p=>{const im=thumb(p);
     const meta=[fmtDur(p.dur||45),p.far>=2?'за городом':'',p.tod==='evening'?'вечером':p.tod==='morning'?'утром':p.tod==='night'?'ночью':'',p.chain?'сеть':''].filter(Boolean).join(' · ');
-    return `<div class="pick" data-row="${p.id}"><input type="checkbox" id="pk-${p.id}" data-id="${p.id}">${im?`<img src="${im}" alt="">`:`<span class="ni" style="display:grid;place-items:center">${p.emoji||''}</span>`}
+    return `<div class="pick" data-row="${p.id}"><input type="checkbox" id="pk-${p.id}" data-id="${p.id}">${im?`<img src="${im}" alt="">`:`<span class="ni">${p.emoji||''}</span>`}
     <label for="pk-${p.id}">${esc(short(p))}<small>${meta}<span class="bad"></span></small></label>
-    <span class="seg" role="group" aria-label="День">${['auto','1','2','3'].map(o=>`<button data-id="${p.id}" data-day="${o}">${o==='auto'?'Авто':'Д'+o}</button>`).join('')}</span></div>`}).join('')}</div>`).join('');
+    <span class="seg" role="group" aria-label="День">${['auto','1','2','3'].map(o=>`<button data-id="${p.id}" data-day="${o}" aria-label="${o==='auto'?'Авто':'День '+o}">${o==='auto'?'Авто':o}</button>`).join('')}</span></div>`}).join('')}</div></details>`).join('');
   $('#picker').addEventListener('change',e=>{const i=e.target.closest('input[data-id]');if(i)togglePick(i.dataset.id)});
   $('#picker').addEventListener('click',e=>{const b=e.target.closest('.seg button[data-day]');if(!b)return;picks[b.dataset.id]=b.dataset.day;savePicks();syncPicks()});
 }
@@ -1241,7 +1252,9 @@ function syncPickerRows(missIds){
   document.querySelectorAll('#picker .pick').forEach(r=>{const id=r.dataset.row,v=picks[id];
     r.classList.toggle('off',!v);r.querySelector('input').checked=!!v;
     r.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',(v||'auto')===b.dataset.day));
-    const miss=missIds.has(id);r.classList.toggle('miss',miss);r.querySelector('.bad').textContent=miss?' · не влезает':''})}
+    const miss=missIds.has(id);r.classList.toggle('miss',miss);r.querySelector('.bad').textContent=miss?' · не влезает':''});
+  document.querySelectorAll('#picker .pgroup').forEach(g=>{const rows=[...g.querySelectorAll('.pick')],on=rows.filter(r=>picks[r.dataset.row]).length,miss=rows.filter(r=>missIds.has(r.dataset.row)).length;
+    g.querySelector('.cnt').innerHTML=`<b>${on}</b> / ${rows.length}`;g.querySelector('.warnc').textContent=miss?`· ${miss} не влезает`:''})}
 function syncPickButtons(){document.querySelectorAll('[data-pick]').forEach(b=>{const on=isPicked(b.dataset.pick);b.classList.toggle('on',on);b.textContent=pickLabel(b.dataset.pick)})}
 function togglePick(id){if(isPicked(id))delete picks[id];else picks[id]='auto';savePicks();syncPicks()}
 let lastPlan=null,planDirty=true,curTab='map',raf=0;
@@ -1254,7 +1267,7 @@ function renderSummary(){
   $('#overload').innerHTML=left.length?`<div class="overload"><h3>${left.length>=5?'Отмечено слишком много мест':'Не всё помещается по времени'}: ${left.length} ${plural(left.length,['место','места','мест'])} ${plural(left.length,['не влезает','не влезают','не влезают'])}</h3>
     <div>Снимите галочки с менее важного или закрепите место за другим днём. Можно также убрать что-то длинное (Диснейленд, аутлет, клуб).</div>
     <ul>${left.map(l=>`<li><b>${esc(short(l.p))}</b> — ${esc(l.why)}.</li>`).join('')}</ul></div>`:'';
-  $('#overTop').innerHTML=left.length?`<a href="#overload" class="overload" style="display:block;text-decoration:none;border-top:0;border-bottom:1px solid var(--line)"><b style="color:var(--accent)">⚠ ${left.length} ${plural(left.length,['место не влезает','места не влезают','мест не влезают'])} по времени</b> — отмечены красным, причины ниже ↓</a>`:'';
+  $('#overTop').innerHTML=left.length?`<a href="#overload" class="overload" style="display:block;text-decoration:none;border-top:0;border-bottom:1px solid var(--line)"><b style="color:var(--accent)">⚠ ${left.length} ${plural(left.length,['место не влезает','места не влезают','мест не влезают'])} по времени</b> — категории с ними помечены, причины ниже ↓</a>`:'';
   syncPickerRows(new Set(left.map(l=>l.p.id)));
 }
 let dayMaps=[];
