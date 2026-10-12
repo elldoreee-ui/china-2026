@@ -1200,7 +1200,8 @@ function scheduleSegBest(list,seg,state,steps){
   const run=f=>{const st={...state},sp=[];const rem=scheduleSeg(list,seg,st,sp,f);
     const end=sp.length?sp[sp.length-1].t:seg.s,waits=sp.filter(x=>x.free).length,km=sp.reduce((a,x)=>a+(x.km||0),0),tm=sp.reduce((a,x)=>a+(x.tm||0),0),tk=sp.reduce((a,x)=>a+(x.tk||0),0);
     const mis=sp.filter(x=>x.id&&byId[x.id].pref&&((x.t<16)!==(byId[x.id].pref==='lunch'))).length;
-    return{st,sp,rem,score:(list.length-rem.length)*1000-mis*400-end*10-waits*8-km-tm*.3-tk*4}};
+    const early=sp.filter(x=>x.id&&byId[x.id].kind==='meal'&&x.t>=16&&x.t<18.75).length;
+    return{st,sp,rem,score:(list.length-rem.length)*1000-mis*400-early*60-end*10-waits*8-km-tm*.3-tk*4}};
   let best=run([]);const ids=list.filter(p=>pts(p).length).map(p=>p.id);
   const tryF=f=>{const r=run(f);if(r.score>best.score+1e-9)best=r};
   ids.forEach(a=>{tryF([a]);if(ids.length<=7)ids.forEach(b=>{if(b!==a)tryF([a,b])})});
