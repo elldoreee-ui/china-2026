@@ -1155,7 +1155,7 @@ function scheduleSeg(list,seg,state,steps){
       const slack=(p.latest||24)-beg;if(slack<2)sc-=40*(1-slack/2);
       if(p.tod==='evening')sc-=p.id==='bund'?50:25;
       if(p.tod==='morning')sc-=20;
-      if(p.kind==='meal'){const Lw=beg>=11.5&&beg<=14,Dw=beg>=17.5&&beg<=20.5;sc+=((Lw&&!state.lunch)||(Dw&&!state.dinner))?-40:40;const slot=state.lunch?'dinner':'lunch',inWin=slot==='lunch'?Lw:Dw;if(p.pref)sc+=p.pref!==slot?60:inWin?-35:0}
+      if(p.kind==='meal'){const Lw=beg>=11.5&&beg<=14,Dw=beg>=17.5&&beg<=20.5,soon=wait<=30;sc+=((Lw&&!state.lunch)||(Dw&&!state.dinner))?(soon?-40:0):40;const slot=state.lunch?'dinner':'lunch',inWin=slot==='lunch'?Lw:Dw;if(p.pref)sc+=p.pref!==slot?60:(inWin&&soon)?-35:0}
       if(p.kind==='snack'&&sinceBreak>110)sc-=25;
       cands.push({p,pl,tr,arr,beg,fin,sc,wait});
     }
